@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import {
-  subscribeToDrawings,
-} from './api';
-
+import { subscribeToDrawings } from './api';
 
 class DrawingList extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
-    subscribeToDrawings((drawing) => {
+    subscribeToDrawings(drawing => {
       this.setState(prevState => ({
         drawings: prevState.drawings.concat([drawing]),
       }));
@@ -19,10 +16,10 @@ class DrawingList extends Component {
     drawings: [],
   };
 
-  render() {
+  render () {
     const drawings = this.state.drawings.map(drawing => (
       <li
-        className="DrawingList-item"
+        className='DrawingList-item'
         key={drawing.id}
         onClick={event => this.props.selectDrawing(drawing)}
       >
@@ -30,13 +27,7 @@ class DrawingList extends Component {
       </li>
     ));
 
-    return (
-      <ul
-        className="DrawingList"
-      >
-        {drawings}
-      </ul>
-    );
+    return <ul className='DrawingList'>{drawings}</ul>;
   }
 }
 

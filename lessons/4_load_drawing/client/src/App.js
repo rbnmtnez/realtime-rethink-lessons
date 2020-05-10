@@ -5,17 +5,15 @@ import DrawingList from './DrawingList';
 import Drawing from './Drawing';
 
 class App extends Component {
-  state = {
+  state = {};
 
+  selectDrawing = drawing => {
+    this.setState({
+      selectedDrawing: drawing,
+    });
   };
 
-  selectDrawing = (drawing) => {
-    this.setState({
-      selectedDrawing: drawing
-    })
-  }
-
-  render() {
+  render () {
     let ctrl = (
       <div>
         <DrawingForm />
@@ -23,16 +21,18 @@ class App extends Component {
       </div>
     );
 
-    if(this.state.selectedDrawing) {
+    if (this.state.selectedDrawing) {
       ctrl = (
-        <Drawing drawing={this.state.selectedDrawing}
-          key={this.state.selectedDrawing.id} />
+        <Drawing
+          drawing={this.state.selectedDrawing}
+          key={this.state.selectedDrawing.id}
+        />
       );
     }
 
     return (
-      <div className="App">
-        <div className="App-header">
+      <div className='App'>
+        <div className='App-header'>
           <h2>Our awesome drawing app</h2>
         </div>
         {ctrl}

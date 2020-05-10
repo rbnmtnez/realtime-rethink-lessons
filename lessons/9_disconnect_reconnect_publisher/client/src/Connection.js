@@ -6,7 +6,7 @@ class Connection extends Component {
     connectionState: 'connecting',
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     subscribeToConnectionEvent(({ state: connectionState, port }) => {
       this.setState({
@@ -16,25 +16,24 @@ class Connection extends Component {
     });
   }
 
-
-  render() {
+  render () {
     let content = null;
 
     if (this.state.connectionState === 'disconnected') {
       content = (
-        <div className="Connection-error">We've lost connection to the server...</div>
+        <div className='Connection-error'>
+          We've lost connection to the server...
+        </div>
       );
     }
 
     if (this.state.connectionState === 'connecting') {
-      content = (
-        <div>Connecting...</div>
-      );
+      content = <div>Connecting...</div>;
     }
 
     return (
-      <div className="Connection">
-        <div className="Connection-port">Socket port: {this.state.port}</div>
+      <div className='Connection'>
+        <div className='Connection-port'>Socket port: {this.state.port}</div>
         {content}
       </div>
     );

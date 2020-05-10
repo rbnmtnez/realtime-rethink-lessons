@@ -1,12 +1,12 @@
 const io = require('socket.io')();
 
-io.on('connection', (client) => {
- client.on('subscribeToTimer', (interval) => {
-  console.log('client is suscribing to timer with interval ', interval);
-  setInterval(() => {
+io.on('connection', client => {
+  client.on('subscribeToTimer', interval => {
+    console.log('client is suscribing to timer with interval ', interval);
+    setInterval(() => {
       client.emit('timer', new Date());
-  }, interval);
- });
+    }, interval);
+  });
 });
 
 const port = 8000;

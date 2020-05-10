@@ -1,37 +1,34 @@
 import React, { Component } from 'react';
-import {
-  createDrawing,
-} from './api';
+import { createDrawing } from './api';
 
 class DrawingForm extends Component {
   state = {
     drawingName: '',
-  }
+  };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     createDrawing(this.state.drawingName);
     this.setState({
       drawingName: '',
     });
-  }
+  };
 
-  render() {
+  render () {
     return (
-      <div className="Form">
+      <div className='Form'>
         <form onSubmit={this.handleSubmit}>
           <input
-            type="text"
+            type='text'
             value={this.state.drawingName}
-            onChange={(evt) => this.setState({ drawingName: evt.target.value })}
-            placeholder="Drawing name"
-            className="Form-drawingInput"
+            onChange={evt => this.setState({ drawingName: evt.target.value })}
+            placeholder='Drawing name'
+            className='Form-drawingInput'
             required
           />
-          <button
-            type="submit"
-            className="Form-button"
-          >Create</button>
+          <button type='submit' className='Form-button'>
+            Create
+          </button>
         </form>
       </div>
     );

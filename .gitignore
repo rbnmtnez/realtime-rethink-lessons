@@ -21,3 +21,4 @@ yarn-debug.log*
 yarn-error.log*
 /client
 /server
+lessons/.vscode/settings.json

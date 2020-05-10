@@ -3,16 +3,14 @@ import './App.css';
 import DrawingForm from './DrawingForm';
 import DrawingList from './DrawingList';
 
-
 class App extends Component {
-
-  render() {
+  render () {
     return (
-      <div className="App">
-        <div className="App-header">
+      <div className='App'>
+        <div className='App-header'>
           <h2>Our awesome drawing app</h2>
-          <DrawingForm/>
-          <DrawingList/>
+          <DrawingForm />
+          <DrawingList />
         </div>
       </div>
     );
