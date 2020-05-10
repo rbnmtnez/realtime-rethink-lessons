@@ -16,5 +16,6 @@ Your Kitematic config should be this:
 
 ![Kitematic RethinkDB config](https://raw.githubusercontent.com/rbnmtnez/realtime-rethink-lessons/master/config/kitematic_rethinkdb.png "Kitematic RethinkDB config")
 
+Access http://localhost:32773 to launch RethinkDB administration panel
 
 
