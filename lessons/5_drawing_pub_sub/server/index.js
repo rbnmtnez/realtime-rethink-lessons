@@ -11,6 +11,17 @@ function createDrawing({ connection, name }) {
   .then(() => console.log('created a new drawing with name ', name));
 }
 
+function subscribeToDrawingLines({ client, connection, drawingId }){
+  return r.table('lines')
+  .filter(r.row('drawingId').eq(drawingId))
+  .changes({ include_initial: true })
+  .run(connection)
+  .then((cursor) => {
+    cursor.each((err, lineRow) => 
+      client.emit(`drawingLine:${drawingId}`, lineRow.new_val))
+  })
+}
+
 function subscribeToDrawings({ client, connection }) {
   r.table('drawings')
   .changes({ include_initial: true })
@@ -29,7 +40,7 @@ function handleLinePublish({ connection, line }) {
 
 r.connect({
   host: 'localhost',
-  port: 28015,
+  port: 32772,
   db: 'awesome_whiteboard'
 }).then((connection) => {
   io.on('connection', (client) => {
@@ -46,6 +57,15 @@ r.connect({
       line,
       connection,
     }));
+
+    client.on('subscribeToDrawingLines', (drawingId) =>
+      subscribeToDrawingLines({
+        client,
+        connection,
+        drawingId
+      })
+    );
+
   });
 });
 

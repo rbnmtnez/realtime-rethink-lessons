@@ -88,6 +88,7 @@ body {
 
 
 .DrawingList-item {
+  color: black;
   list-style: none;
   padding-top: 15px;
   padding-bottom: 15px;

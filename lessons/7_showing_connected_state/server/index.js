@@ -39,7 +39,7 @@ function subscribeToDrawingLines({ client, connection, drawingId}) {
 
 r.connect({
   host: 'localhost',
-  port: 28015,
+  port: 32772,
   db: 'awesome_whiteboard'
 }).then((connection) => {
   io.on('connection', (client) => {
@@ -68,7 +68,7 @@ r.connect({
 });
 
 
-const port = 8000;
+const port = parseInt(process.argv[2], 10) || 8000;
 io.listen(port);
 console.log('listening on port ', port);
 

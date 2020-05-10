@@ -39,7 +39,7 @@ function subscribeToDrawingLines({ client, connection, drawingId}) {
 
 r.connect({
   host: 'localhost',
-  port: 28015,
+  port: 32772,
   db: 'awesome_whiteboard'
 }).then((connection) => {
   io.on('connection', (client) => {

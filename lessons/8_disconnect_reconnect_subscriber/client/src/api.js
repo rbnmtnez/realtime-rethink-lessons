@@ -1,7 +1,9 @@
 import openSocket from 'socket.io-client';
 import Rx from 'rxjs/Rx';
 
+
 const port = parseInt(window.location.search.replace('?', ''), 10) || 8000;
+console.log("port ", port);
 const socket = openSocket(`http://localhost:${port}`);
 
 function subscribeToDrawings(cb) {
@@ -28,8 +30,27 @@ function subscribeToDrawingLines(drawingId, cb) {
   .bufferTime(100)
   .map(lines => ({ lines }));
 
+  const reconnectStream = Rx.Observable.fromEventPattern(
+    h => socket.on('connect', h),
+    h => socket.off('connect', h),
+  );
+
+  const maxStream = lineStream
+  .map(l => new Date(l.timestamp).getTime())
+  .scan((a, b) => Math.max(a, b), 0);
+
+  reconnectStream
+  .withLatestFrom(maxStream)
+  .subscribe((joined) => {
+    const lastReceivedTimestamp = joined[1];
+    socket.emit('subscribeToDrawingLines', {
+      drawingId,
+      from: lastReceivedTimestamp
+    })
+  });
+
   bufferedTimeStream.subscribe(linesEvent => cb(linesEvent));
-  socket.emit('subscribeToDrawingLines', drawingId);
+  socket.emit('subscribeToDrawingLines', {drawingId});
 }
 
 

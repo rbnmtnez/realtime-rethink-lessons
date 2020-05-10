@@ -20,10 +20,16 @@ function subscribeToDrawings({ client, connection }) {
   });
 }
 
+function handleLinePublish({ connection, line }){
+  console.log('saving line to the db');
+  r.table('lines')
+  .insert(Object.assign(line, { timestamp: new Date() }))
+  .run(connection);
+}
 
 r.connect({
   host: 'localhost',
-  port: 28015,
+  port: 32772,
   db: 'awesome_whiteboard'
 }).then((connection) => {
   io.on('connection', (client) => {
@@ -33,6 +39,11 @@ r.connect({
 
     client.on('subscribeToDrawings', () => subscribeToDrawings({
       client,
+      connection,
+    }));
+
+    client.on('publishLine', (line) => handleLinePublish({
+      line,
       connection,
     }));
   });
